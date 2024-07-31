@@ -1,0 +1,47 @@
+#include <stdio.h>
+
+int main() {
+    int year, month, daysInMonth, startingDay;
+    
+    printf("Enter year: ");
+    scanf("%d", &year);
+    
+    printf("Enter month (1-12): ");
+    scanf("%d", &month);
+    
+    // Calculate the number of days in the given month
+    if (month == 2) {
+        if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+            daysInMonth = 29;
+        } else {
+            daysInMonth = 28;
+        }
+    } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+        daysInMonth = 30;
+    } else {
+        daysInMonth = 31;
+    }
+    
+    // Calculate the starting day of the week for the given month
+    startingDay = (year + (year / 4) - (year / 100) + (year / 400) + ((13 * month + 8) / 5)) % 7;
+    
+    // Print the calendar
+    printf("\n-----------------------------\n");
+    printf("       %d/%d\n", month, year);
+    printf("-----------------------------\n");
+    printf(" Sun Mon Tue Wed Thu Fri Sat\n");
+    
+    for (int i = 0; i < startingDay; i++) {
+        printf("    ");
+    }
+    
+    for (int day = 1; day <= daysInMonth; day++) {
+        printf("%4d", day);
+        
+        if ((day + startingDay) % 7 == 0 || day == daysInMonth) {
+            printf("\n");
+        }
+    }
+    
+    return 0;
+}
